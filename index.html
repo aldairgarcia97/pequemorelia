@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja de Sorpresas con Fotos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8557e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .caja {
+            width: 200px;
+            height: 200px;
+            background-color: #4b8add;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .caja:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .caja::before {
+            content: "🎁";
+            font-size: 60px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Contenedor de las imágenes en línea horizontal */
+        .galeria {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap: 20px; /* Espacio entre imágenes */
+        }
+
+        .foto-item {
+            text-align: center;
+        }
+
+        .imagen {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .texto-imagen {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ffffff;
+            display: none;
+            font-weight: bold;
+            width: 220px; /* Asegura que el texto esté alineado con la imagen */
+            text-align: center; /* Centra el texto */
+            white-space: normal; /* Permite que el texto fluya naturalmente */
+        }
+
+        .imagen.mostrar {
+            opacity: 1;
+        }
+
+        .texto-imagen.mostrar {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="textoPrincipal">❤️ ¡Tengo una sorpresa para ti! ❤️</h1>
+    <div id="caja" class="caja"></div>
+    
+    <h1 id="nuevoTexto" style="display: none;">❤️ Te quiero mucho Mi Pequeña Morelia ❤️</h1>
+    
+    <div id="galeria" class="galeria">
+        <div class="foto-item">
+            <img id="foto1" class="imagen" src="imagen1.jpeg" alt="Sorpresa 1">
+            <div id="texto1" class="texto-imagen">Nunca dudes de lo mucho que te quiero y te admiro, eres la mejor. ❤️</div>
+        </div>
+        <div class="foto-item">
+            <img id="foto2" class="imagen" src="imagen2.jpeg" alt="Sorpresa 2">
+            <div id="texto2" class="texto-imagen">Ninguna persona deberia juzgarte por tu forma de ser, para mi eres perfecta y no cambiaria nada de ti. ❤️</div>
+        </div>
+        <div class="foto-item">
+            <img id="foto3" class="imagen" src="imagen3.jpeg" alt="Sorpresa 3">
+            <div id="texto3" class="texto-imagen">Conocerte fue lo mejor que me paso en este año, eres una gran persona y te pido que nunca cambies tu forma de ser. ❤️</div>
+        </div>
+    </div>
+
+    <script>
+        // Obtener los elementos del DOM
+        const caja = document.getElementById('caja');
+        const galeria = document.getElementById('galeria');
+        const imagenes = document.querySelectorAll('.imagen');
+        const textos = document.querySelectorAll('.texto-imagen');
+        const textoPrincipal = document.getElementById('textoPrincipal');
+        const nuevoTexto = document.getElementById('nuevoTexto');
+
+        // Función para abrir la caja y mostrar las fotos
+        caja.addEventListener('click', function() {
+            // Ocultar el texto principal y mostrar el nuevo texto
+            textoPrincipal.style.display = 'none';
+            nuevoTexto.style.display = 'block';
+
+            // Mostrar la galería de fotos en línea
+            galeria.style.display = 'flex';
+
+            // Mostrar las fotos y los textos con un retraso
+            imagenes.forEach((imagen, index) => {
+                setTimeout(() => {
+                    imagen.classList.add('mostrar');
+                    textos[index].classList.add('mostrar'); // Mostrar el texto debajo de la imagen
+                }, index * 500); // Cada imagen y su texto se muestran con un retraso de 0.5 segundos
+            });
+
+            // Animación de la caja al hacer clic
+            caja.style.transform = 'scale(0)';
+            setTimeout(() => {
+                caja.style.display = 'none';
+            }, 300);  // Tiempo para que la caja se "desaparezca"
+        });
+    </script>
+
+</body>
+</html>
